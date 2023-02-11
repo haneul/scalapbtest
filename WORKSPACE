@@ -13,15 +13,15 @@ http_archive(
 load("@bazel_skylib//:workspace.bzl", "bazel_skylib_workspace")
 bazel_skylib_workspace()
 
-rules_scala_version = "376765b8cb2b82d201b05f359d3b4faa6229eefa"
+rules_scala_version = "c96948c77825e3d5ce00b9711bff6c349477e37f"
 http_archive(
     name = "io_bazel_rules_scala",
     url = "https://repository.rubrik.com/artifactory/github/bazelbuild/rules_scala/archive/%s.zip" % rules_scala_version,
     strip_prefix= "rules_scala-%s" % rules_scala_version,
-    sha256 = "5d3cbe75503af9a4c9ac2905c46326ce7364fe2124f0441265fcbdf12003c0d0",
+    sha256 = "bd74d16491c79e9da1cbb2b07a35a0782dd7dfbe5acd8c749225db4e6a665944",
 )
 
-scala_version = "2.12.11"
+scala_version = "2.12.14"
 
 load("@io_bazel_rules_scala//:scala_config.bzl", "scala_config")
 scala_config(scala_version=scala_version)
