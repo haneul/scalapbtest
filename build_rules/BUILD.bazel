@@ -1,0 +1,47 @@
+load("@io_bazel_rules_scala//scala:scala_toolchain.bzl", "scala_toolchain")
+load("@io_bazel_rules_scala//scala_proto:scala_proto_toolchain.bzl", "scala_proto_toolchain")
+
+scala_toolchain(
+    name = "scala_toolchain_impl",
+    scalacopts = [
+        "-feature",
+        "-language:postfixOps",
+        "-unchecked",
+        "-deprecation",
+        "-Xlint:missing-interpolator",
+        "-Ywarn-unused:-explicits",
+        "-Ywarn-unused-import",
+        "-Ywarn-value-discard",
+    ],
+    scalac_jvm_flags = [
+        "-Xms256M",
+        "-Xmx1280M",
+        "-Xss32M",
+        "-XX:+CMSClassUnloadingEnabled",
+        "-Duser.timezone=UTC",
+    ],
+    visibility = ["//visibility:public"]
+)
+
+toolchain(
+    name = "scala_toolchain",
+    toolchain_type = "@io_bazel_rules_scala//scala:toolchain_type",
+    toolchain = "scala_toolchain_impl",
+    visibility = ["//visibility:public"]
+)
+
+scala_proto_toolchain(
+    name = "scala_proto_toolchain",
+    with_grpc = True,
+    with_flat_package = False,
+    with_single_line_to_string = False,
+    visibility = ["//visibility:public"],
+)
+
+toolchain(
+    name = "scalapb_toolchain",
+    toolchain = ":scala_proto_toolchain",
+    toolchain_type = "@io_bazel_rules_scala//scala_proto:toolchain_type",
+    visibility = ["//visibility:public"],
+)
+

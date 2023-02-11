@@ -1,0 +1,17 @@
+load("@rules_proto//proto:defs.bzl", "proto_library")
+load("@io_bazel_rules_scala//scala_proto:scala_proto.bzl",
+     scala_proto_library = "scala_proto_library",
+)
+
+proto_library(
+    name = "proto_proto",
+    srcs = ["test.proto"],
+    visibility = ["//visibility:public"],
+    deps = ["//scalapb:scalapb_proto"],
+)
+
+scala_proto_library(
+    name = "proto_scala",
+    deps = [":proto_proto"],
+    visibility = ["//visibility:public"]
+)
